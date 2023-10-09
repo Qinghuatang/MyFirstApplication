@@ -25,7 +25,7 @@ public class Experiment6 extends AppCompatActivity {
         RecyclerView recycle_view_books = findViewById(R.id.recycle_view_books);
         recycle_view_books.setLayoutManager(new LinearLayoutManager(this));     // 设置布局管理器
 
-        ArrayList<Book> bookItems = new ArrayList<Book>();
+        ArrayList<Book> bookItems = new ArrayList<>();
         bookItems.add(new Book("软件项目管理案例教程（第四版）", R.drawable.book_2));
         bookItems.add(new Book("创新工程实践", R.drawable.book_no_name));
         bookItems.add(new Book("信息安全数学基础（第2版）", R.drawable.book_1));
@@ -44,7 +44,6 @@ public class Experiment6 extends AppCompatActivity {
             public ViewHolder(View view) {
                 super(view);
                 // Define click listener for the ViewHolder's View
-
                 textViewTitle = (TextView) view.findViewById(R.id.text_view_book_title);
                 imageViewCover = (ImageView) view.findViewById(R.id.image_view_book_cover);
             }
