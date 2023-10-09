@@ -1,11 +1,13 @@
 package com.jnu.student;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,6 +37,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             CharSequence jnu = tvJnu.getText();
             tvHello.setText(jnu);
             tvJnu.setText(hello);
+
+            // 1.使用Toast显示"交换成功"
+            Toast.makeText(this, "交换成功", Toast.LENGTH_SHORT).show();
+
+            // 2.使用AlertDialog显示"交换成功"
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);    // 创建提醒对话框的构造器
+            builder.setMessage("交换成功");
+            AlertDialog dialog = builder.create();  // 根据构造器构建提醒对话框对象
+            dialog.show();  // 显示提醒对话框
         }
     }
 }
