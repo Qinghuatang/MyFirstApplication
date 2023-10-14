@@ -4,12 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ShopItemDetailsActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_view_books"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:layout_marginTop="0dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
