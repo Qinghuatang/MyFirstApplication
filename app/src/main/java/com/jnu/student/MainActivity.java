@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
                         // 处理返回的数据
-                        String key = data.getStringExtra("key");    // 获取返回的数据
-                        Toast.makeText(this, key, Toast.LENGTH_SHORT).show();
-
+                        String name = data.getStringExtra("name");    // 获取返回的数据
+                        bookItems.add(new Book(name, R.drawable.book_1));
+                        adapter.notifyItemInserted(bookItems.size());
                     } else if (result.getResultCode() == Activity.RESULT_CANCELED) {
 
                     }

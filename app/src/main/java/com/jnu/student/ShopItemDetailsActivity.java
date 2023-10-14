@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class ShopItemDetailsActivity extends AppCompatActivity {
 
@@ -21,9 +22,12 @@ public class ShopItemDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("key", "Some result data");
-                setResult(Activity.RESULT_OK, intent);
+                EditText et_item_name = findViewById(R.id.et_item_name);
+                EditText et_item_price = findViewById(R.id.et_item_price);
 
+                intent.putExtra("name", et_item_name.getText().toString());
+                intent.putExtra("price", et_item_price.getText().toString());
+                setResult(Activity.RESULT_OK, intent);
                 ShopItemDetailsActivity.this.finish();
             }
         });
