@@ -1,9 +1,13 @@
 package com.jnu.student;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -22,6 +26,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityResultLauncher<Intent> addItemLaucher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +45,27 @@ public class MainActivity extends AppCompatActivity {
         recycle_view_books.setAdapter(adapter);
 
         registerForContextMenu(recycle_view_books);     // 创建场景菜单事件
+
+
+        addItemLaucher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        // 处理返回的数据
+                        String key = data.getStringExtra("key");    // 获取返回的数据
+                        Toast.makeText(this, key, Toast.LENGTH_SHORT).show();
+
+                    } else if (result.getResultCode() == Activity.RESULT_CANCELED) {
+
+                    }
+                });
     }
 
     public static class RecycleViewBookAdapater extends RecyclerView.Adapter<RecycleViewBookAdapater.ViewHolder> {
 
         private ArrayList<Book> bookItemArrayList;
-        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
+
+        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
             private final TextView textViewTitle;
             private final ImageView imageViewCover;
 
@@ -71,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             public TextView getTextViewTitle() {
                 return textViewTitle;
             }
+
             public ImageView getImageViewCover() {
                 return imageViewCover;
             }
@@ -112,7 +134,8 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "clicked" + item.getOrder(), Toast.LENGTH_SHORT).show();
         switch (item.getItemId()) {
             case 0:
-
+                Intent intent = new Intent(this, ShopItemDetailsActivity.class);
+                addItemLaucher.launch(intent);
                 break;
             case 1:
 
