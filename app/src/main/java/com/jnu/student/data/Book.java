@@ -2,7 +2,7 @@ package com.jnu.student.data;
 
 public class Book {
 
-    private final String title;
+    private String title;
     private final int coverResourceId;
 
     public int getCoverResourceId() {
@@ -11,6 +11,10 @@ public class Book {
 
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title){
+        this.title = title;
     }
 
     public Book(String name, int coverResourceId) {

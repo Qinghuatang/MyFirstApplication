@@ -5,7 +5,8 @@
     <string name="Hello">Hello</string>
     <string name="JNU">JNU</string>
     <string name="change_text">change text</string>
-    <string name="string_item_name">商品名称</string>
-    <string name="string_item_price">价格</string>
+    <string name="string_item_name">图书名称</string>
     <string name="string_ok">确认</string>
+    <string name="string_cancel">取消</string>
+    <string name="string_input_name">请输入图书名称</string>
 </resources>
