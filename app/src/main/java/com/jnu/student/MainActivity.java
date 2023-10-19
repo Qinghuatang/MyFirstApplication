@@ -1,14 +1,14 @@
 package com.jnu.student;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -34,11 +34,12 @@ public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> addItemLauncher;
     private ActivityResultLauncher<Intent> updateItemLauncher;
     private ArrayList<Book> bookItems;
+    private RecycleViewBookAdapater adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_experiment6);
+        setContentView(R.layout.activity_main);
 
         RecyclerView recycle_view_books = findViewById(R.id.recycle_view_books);
         recycle_view_books.setLayoutManager(new LinearLayoutManager(this)); // 设置布局管理器
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         bookItems.add(new Book("创新工程实践", R.drawable.book_no_name));
         bookItems.add(new Book("信息安全数学基础（第2版）", R.drawable.book_1));
 
-        RecycleViewBookAdapater adapter = new RecycleViewBookAdapater(bookItems);
+        adapter = new RecycleViewBookAdapater(bookItems);
         recycle_view_books.setAdapter(adapter);
 
         registerForContextMenu(recycle_view_books);     // 创建场景菜单事件
@@ -56,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
         addItemLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if(null != result){
+                    if (null != result) {
                         Intent data = result.getData();
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             Bundle bundle = data.getExtras();
                             // 处理返回的数据
-                            String name = bundle.getString("name");    // 获取返回的数据
+                            String name = bundle.getString("title");    // 获取返回的数据
                             bookItems.add(new Book(name, R.drawable.book_no_name));
                             adapter.notifyItemInserted(bookItems.size());
                         }
@@ -70,12 +71,12 @@ public class MainActivity extends AppCompatActivity {
 
         updateItemLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if(null != result){
+                    if (null != result) {
                         Intent data = result.getData();
-                        if(result.getResultCode() == Activity.RESULT_OK){
+                        if (result.getResultCode() == Activity.RESULT_OK) {
                             Bundle bundle = data.getExtras();
 
-                            String title = bundle.getString("name");    // 获取返回的数据
+                            String title = bundle.getString("title");    // 获取返回的数据
                             int position = bundle.getInt("position");
                             bookItems.get(position).setTitle(title);
                             adapter.notifyItemChanged(position);
@@ -161,6 +162,21 @@ public class MainActivity extends AppCompatActivity {
                 addItemLauncher.launch(addIntent);
                 break;
             case MENU_ID_DELETE:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.confirmation);
+                builder.setMessage(R.string.sure_to_delete);
+                builder.setPositiveButton(R.string.yes,
+                        (dialog, which) -> {
+                            bookItems.remove(item.getOrder());
+                            adapter.notifyItemRemoved(item.getOrder());
+                        });
+
+                builder.setNegativeButton(R.string.no,
+                        ((dialog, which) -> {
+
+                        }));
+                AlertDialog dialog = builder.create();
+                dialog.show();
 
                 break;
             case MENU_ID_UPDATE:
@@ -170,9 +186,7 @@ public class MainActivity extends AppCompatActivity {
                 updateIntent.putExtra("name", bookItems.get(item.getOrder()).getTitle());
                 updateItemLauncher.launch(updateIntent);
                 break;
-            default:
-                return super.onContextItemSelected(item);
         }
-        return true;
+        return super.onContextItemSelected(item);
     }
 }

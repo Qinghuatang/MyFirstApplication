@@ -9,4 +9,8 @@
     <string name="string_ok">确认</string>
     <string name="string_cancel">取消</string>
     <string name="string_input_name">请输入图书名称</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="sure_to_delete">Are you sure to delete this item</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

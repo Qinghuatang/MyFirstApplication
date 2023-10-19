@@ -17,7 +17,7 @@ public class Experiment1 extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_experiment1);
 
         // 实验三内容
         TextView tv_hello = findViewById(R.id.text_view_hello_world);

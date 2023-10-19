@@ -19,7 +19,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         Button btn_item_details_ok = findViewById(R.id.btn_item_details_ok);
         int position = this.getIntent().getIntExtra("position", 0);
-        String title = this.getIntent().getStringExtra("name");
+        String title = this.getIntent().getStringExtra("title");
 
         EditText et_item_name = findViewById(R.id.et_item_name);
 
@@ -35,7 +35,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
                 EditText et_item_name = findViewById(R.id.et_item_name);
 
-                bundle.putString("name", et_item_name.getText().toString());
+                bundle.putString("title", et_item_name.getText().toString());
                 bundle.putInt("position", position);
 
                 intent.putExtras(bundle);
