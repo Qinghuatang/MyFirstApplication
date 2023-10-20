@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -22,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jnu.student.data.Book;
+import com.jnu.student.data.DataBank;
 
 import java.util.ArrayList;
 
@@ -44,10 +44,15 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recycle_view_books = findViewById(R.id.recycle_view_books);
         recycle_view_books.setLayoutManager(new LinearLayoutManager(this)); // 设置布局管理器
 
-        bookItems = new ArrayList<>();
-        bookItems.add(new Book("软件项目管理案例教程（第四版）", R.drawable.book_2));
-        bookItems.add(new Book("创新工程实践", R.drawable.book_no_name));
-        bookItems.add(new Book("信息安全数学基础（第2版）", R.drawable.book_1));
+
+        DataBank dataBank = new DataBank();
+        bookItems = dataBank.LoadBookItems(MainActivity.this);
+
+        if(0 == bookItems.size()){
+            bookItems.add(new Book("软件项目管理案例教程（第四版）", R.drawable.book_2));
+            bookItems.add(new Book("创新工程实践", R.drawable.book_no_name));
+            bookItems.add(new Book("信息安全数学基础（第2版）", R.drawable.book_1));
+        }
 
         adapter = new RecycleViewBookAdapater(bookItems);
         recycle_view_books.setAdapter(adapter);
@@ -65,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
                             String name = bundle.getString("title");    // 获取返回的数据
                             bookItems.add(new Book(name, R.drawable.book_no_name));
                             adapter.notifyItemInserted(bookItems.size());
+
+                            DataBank dataBank1 = new DataBank();
+                            dataBank1.SaveBookItems(MainActivity.this, bookItems);
                         }
                     }
                 });
@@ -79,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                             String title = bundle.getString("title");    // 获取返回的数据
                             int position = bundle.getInt("position");
                             bookItems.get(position).setTitle(title);
+
                             adapter.notifyItemChanged(position);
                         }
                     }
@@ -169,6 +178,8 @@ public class MainActivity extends AppCompatActivity {
                         (dialog, which) -> {
                             bookItems.remove(item.getOrder());
                             adapter.notifyItemRemoved(item.getOrder());
+
+                            new DataBank().SaveBookItems(MainActivity.this, bookItems);
                         });
 
                 builder.setNegativeButton(R.string.no,
