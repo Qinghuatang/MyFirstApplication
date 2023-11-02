@@ -30,15 +30,19 @@
             </intent-filter>
         </activity>
         <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="tUteIZ9e6mL1OHGzGWIR5X3Magm2CA1G" />
+            android:name="TencentMapSDK"
+            android:value="W5HBZ-MRZ33-K6N3D-OMSFQ-Y5XQ2-I7BOB"/>
     </application>
+    <!--腾讯地图 SDK 要求的权限(开始)-->
+    <!--访问网络获取地图服务-->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <!-- 获取网络状态，根据网络状态切换进行数据请求网络转换 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <!-- 读取外置存储。如果开发者使用了so动态加载功能并且把so文件放在了外置存储区域，则需要申请该权限，否则不需要 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- 写外置存储。如果开发者使用了离线地图，并且数据写在外置存储区域，则需要申请该权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--检查网络可用性-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 访问WiFi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--需要外部存储写权限用于保存地图缓存-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--获取 device id 辨别设备-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!--腾讯地图 SDK 要求的权限(结束)-->
 </manifest>

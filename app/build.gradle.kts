@@ -17,9 +17,6 @@ android {
 
         ndk {
             // 设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
-            abiFilters.add("armeabi")
-            abiFilters.add("armeabi-v7a")
-            abiFilters.add("arm64-v8a")
             abiFilters.add("x86")
             abiFilters.add("x86_64")
         }
@@ -45,7 +42,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("com.baidu.lbsyun:BaiduMapSDK_Map:7.5.9.2")
+    implementation("com.tencent.map:tencent-map-vector-sdk:4.3.4")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

@@ -1,41 +1,21 @@
 package com.jnu.student;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.jnu.student.data.Book;
-import com.jnu.student.data.DataBank;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String[] tabHeaderStrings = {"Shopping items", "baidu maps", "News"};
+    private String[] tabHeaderStrings = {"Shopping items", "tencent maps", "News"};
 
 
     @Override
@@ -73,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return new ShoppingListFragment();
                 case 1:
-                    return new BaiduMapFragment();
+                    return new TencentMapFragment();
                 case 2:
                     return new WebViewFragment();
                 default:
