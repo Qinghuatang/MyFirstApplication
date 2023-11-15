@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textViewHeight">60dp</dimen>
+    <dimen name="taskContentTextSize">18sp</dimen>
+    <dimen name="taskPointTextSize">30sp</dimen>
+    
+</resources>

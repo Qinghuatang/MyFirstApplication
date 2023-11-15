@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">我的第一个应用</string>
+    <string name="app_name">PlayTask</string>
     <string name="hello">Hello world</string>
     <string name="hello_android">你好Android</string>
     <string name="Hello">Hello</string>
@@ -13,6 +13,11 @@
     <string name="sure_to_delete">Are you sure to delete this item</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <string name="new_task_content">任务内容</string>
+    <string name="new_task_point">可获得的成就点数</string>
+    <string name="new_task_num">数量 (可选)</string>
+    <string name="new_task_classification">任务类别</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
