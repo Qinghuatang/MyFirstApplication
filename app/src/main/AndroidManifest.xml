@@ -24,8 +24,6 @@
         <activity
             android:name=".TaskDetailActivity"
             android:exported="false" />
-<!--        android:label="new_task"-->
-<!--        android:theme="@style/Theme.NewTask"-->
         <activity
             android:name=".MainActivity"
             android:exported="false" />

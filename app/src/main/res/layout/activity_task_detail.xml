@@ -19,6 +19,45 @@
         app:title="新建任务"
         app:titleMarginStart="90dp"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请选择任务类型："/>
+
+    <RadioGroup
+        android:id="@+id/rg_task_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/rb_daily"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="每日任务"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+        <RadioButton
+            android:id="@+id/rb_weekly"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="false"
+            android:text="每周任务"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+        <RadioButton
+            android:id="@+id/rb_common"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="false"
+            android:text="普通任务"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+    </RadioGroup>
 
     <EditText
         android:id="@+id/et_new_task_content"

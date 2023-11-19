@@ -3,20 +3,43 @@ package com.jnu.student.data;
 import java.sql.Timestamp;
 
 public class Task {
+    private int id;
     private String taskType;
     private Timestamp time;
     private String content;
     private int point;
+    private int finishedNum;
     private int num;
     private String classification;
 
     public Task() {
     }
 
-    public Task(String content, Timestamp time, int point) {
-        this.content = content;
+    public Task(int id, String taskType, Timestamp time, String content, int point, int finishedNum, int num, String classification) {
+        this.id = id;
+        this.taskType = taskType;
         this.time = time;
+        this.content = content;
         this.point = point;
+        this.finishedNum = finishedNum;
+        this.num = num;
+        this.classification = classification;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getFinishedNum() {
+        return finishedNum;
+    }
+
+    public void setFinishedNum(int finishedNum) {
+        this.finishedNum = finishedNum;
     }
 
     public String getContent() {
@@ -70,10 +93,12 @@ public class Task {
     @Override
     public String toString() {
         return "Task{" +
-                "taskType='" + taskType + '\'' +
+                "id=" + id +
+                ", taskType='" + taskType + '\'' +
                 ", time=" + time +
                 ", content='" + content + '\'' +
                 ", point=" + point +
+                ", finishedNum=" + finishedNum +
                 ", num=" + num +
                 ", classification='" + classification + '\'' +
                 '}';

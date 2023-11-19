@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.MyFirstApplication" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Base.Theme.MyFirstApplication" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/DeepSkyBlue</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
@@ -8,20 +8,28 @@
 
     <style name="Theme.MyFirstApplication" parent="Base.Theme.MyFirstApplication" />
 
-
-    <!-- 自定义标题栏 parent="android:Theme" 这个属性必须写 -->
-    <style name="Theme.NewTask" parent="Theme.AppCompat.Light.DarkActionBar">
-
-        <item name="android:windowContentOverlay">@null</item>
-
-        <!-- 设置高度，和 mytitlebar.xml中保持一致 -->
-        <item name="android:windowTitleSize">50dp</item>
-        <!-- 设置内填充为0 使自定义标题填充整个标题栏，否则左右两边有空隙 -->
-        <item name="android:padding">0dp</item>
-
-        <!--    自定义主题需要将一下三项设置为false    -->
-        <item name="android:windowNoTitle">false</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowActionBarOverlay">false</item>
+    <style name="TaskFrame.ToolBar" parent="Base.Theme.MyFirstApplication">
+        <!--ToolBar 字体颜色改为白色 -->
+        <item name="titleTextColor">@android:color/white</item>
+        <!-- 溢出菜单图标颜色 -->
+        <item name="colorControlNormal">@android:color/white</item>
+        <!-- 右侧溢出菜单图标自定义 -->
+        <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow</item>
+        <!-- 是否覆盖锚点，默认为true，即盖住 Toolbar -->
+        <item name="overlapAnchor">false</item>
+        <!-- 弹出层背景颜色 -->
+        <item name="android:colorBackground">@color/white</item>
+        <!-- 设置弹出菜单文字颜色 -->
+        <item name="android:textColor">@android:color/black</item>
+        <!-- 弹出层垂直方向上的偏移，即在竖直方向上距离Toolbar的距离，值为负则会盖住Toolbar -->
+        <item name="android:dropDownVerticalOffset">0dp</item>
+        <!-- 弹出层水平方向上的偏移，即距离屏幕左边的距离，负值会导致右边出现空隙 -->
+        <item name="android:dropDownHorizontalOffset">0dp</item>
     </style>
+
+    <!-- 右侧溢出菜单图标自定义 -->
+    <style name="ActionButton.Overflow" parent="android:Widget.ActionButton.Overflow">
+        <item name="android:src">@drawable/task_top_add</item>
+    </style>
+
 </resources>
