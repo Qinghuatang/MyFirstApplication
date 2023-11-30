@@ -5,15 +5,14 @@
     <item
         android:id="@+id/task"
         android:icon="@drawable/task_selector"
-        android:title="任务"
-        app:showAsAction="ifRoom"/>
+        android:title="任务"/>
     <item
         android:id="@+id/award"
         android:icon="@drawable/award_selector"
         android:title="奖励" />
     <item
         android:id="@+id/count"
-        android:icon="@drawable/personal_selector"
+        android:icon="@drawable/count_selector"
         android:title="统计" />
     <item
         android:id="@+id/personal"

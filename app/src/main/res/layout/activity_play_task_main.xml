@@ -22,4 +22,14 @@
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_tab_menu"/>
 
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/fab"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_above="@+id/main_navigation_bar"-->
+<!--        android:layout_alignRight="@+id/main_navigation_bar"-->
+<!--        android:tooltipText="25"-->
+<!--        android:contentDescription="test"-->
+<!--        android:layout_margin="16dp" />-->
+
 </RelativeLayout>

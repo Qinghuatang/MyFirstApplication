@@ -6,32 +6,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-<!--  theme中设置主题  -->
+    <!--  theme中设置主题  -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/task_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/DeepSkyBlue"
-        app:menu="@menu/task_top_menu"
         android:theme="@style/TaskFrame.ToolBar"
-        app:title="PlayTask"/>
+        app:menu="@menu/task_top_menu"
+        app:title="PlayTask" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/task_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabMode="fixed"
-            app:tabGravity="fill"/>
+            app:tabGravity="fill"
+            app:tabMode="fixed" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/task_view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_point"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            android:paddingLeft="20dp"
+            android:textColor="@color/DeepSkyBlue"
+            android:textSize="@dimen/taskPointTextSize" />
 
     </LinearLayout>
 

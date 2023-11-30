@@ -1,9 +1,7 @@
-package com.jnu.student;
+package com.jnu.student.Task;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -23,74 +21,59 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.jnu.student.PlayTaskMainActivity;
+import com.jnu.student.R;
 import com.jnu.student.data.Task;
-import com.jnu.student.database.TaskDBHelper;
+
 
 import java.sql.Timestamp;
 
 
 // 修改了原来的MainActivity
 public class TaskFragment extends Fragment {
+    private static TaskFragment taskFragment;
     private String[] tabHeaderStrings = {"每日任务", "每周任务", "普通任务"};
     private ActivityResultLauncher<Intent> addItemLauncher;
     Toolbar task_toolbar;
-
-    private String mDatabaseName;
-    private TaskDBHelper taskDBHelper;
 
     private DailyTaskFragment dailyTaskFragment;
     private WeeklyTaskFragment weeklyTaskFragment;
     private CommonTaskFragment commonTaskFragment;
 
-    public TaskFragment() {
+    private TaskFragment() {
         // Required empty public constructor
     }
 
-    public static TaskFragment newInstance(String from) {
-        TaskFragment fragment = new TaskFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("from", from);
-        fragment.setArguments(bundle);
-        return fragment;
+    public static TaskFragment getInstance() {
+        if (taskFragment == null) {
+            taskFragment = new TaskFragment();
+        }
+        return taskFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d("test", "TaskFragmentOnCreate");
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        mDatabaseName = getActivity().getFilesDir() + "/PlayTask.db";
+        dailyTaskFragment = DailyTaskFragment.getInstance();
+        weeklyTaskFragment = WeeklyTaskFragment.getInstance();
+        commonTaskFragment = CommonTaskFragment.getInstance();
 
-        // 创建或打开数据库, 数据库如果不存在就创建, 如果存在就打开
-        SQLiteDatabase db = getActivity().openOrCreateDatabase(mDatabaseName, Context.MODE_PRIVATE, null);
-        String desc = String.format("数据库%s创建%s", db.getPath(), db != null ? "成功" : "失败");
-        Log.d("database", desc);
-
-
-        // 获得数据库帮助器的实例
-        taskDBHelper = TaskDBHelper.getInstance(getActivity());
-        // 打开数据库帮助器的读写连接
-        taskDBHelper.openWriteLink();
-        taskDBHelper.openReadLink();
-
-        dailyTaskFragment = new DailyTaskFragment(taskDBHelper);
-        weeklyTaskFragment = new WeeklyTaskFragment(taskDBHelper);
-        commonTaskFragment = new CommonTaskFragment(taskDBHelper);
-
-        dailyTaskFragment.setDailyTaskList(taskDBHelper.queryByType("Daily"));
-        weeklyTaskFragment.setWeeklyTaskList(taskDBHelper.queryByType("Weekly"));
-        commonTaskFragment.setCommonTaskList(taskDBHelper.queryByType("Common"));
+        dailyTaskFragment.setDailyTaskList(PlayTaskMainActivity.mDBMaster.mTaskDBDao.queryTaskByType("Daily"));
+        weeklyTaskFragment.setWeeklyTaskList(PlayTaskMainActivity.mDBMaster.mTaskDBDao.queryTaskByType("Weekly"));
+        commonTaskFragment.setCommonTaskList(PlayTaskMainActivity.mDBMaster.mTaskDBDao.queryTaskByType("Common"));
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // 关闭数据库连接
-        taskDBHelper.closeLink();
     }
 
     @Override
@@ -127,17 +110,18 @@ public class TaskFragment extends Fragment {
             }
         });
 
+        TextView tv_point = rootView.findViewById(R.id.tv_point);
+        int pointSum = PlayTaskMainActivity.mDBMaster.mCountDBDao.queryPointSum();
+        tv_point.setText(String.valueOf(pointSum));
+
 
         addItemLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     Intent data = result.getData();
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Bundle bundle = data.getExtras();
-//                        int size = dailyTaskFragment.getAdapter().getTaskItemArrayList().size() +
-//                                weeklyTaskFragment.getAdapter().getTaskItemArrayList().size() +
-//                                commonTaskFragment.getAdapter().getTaskItemArrayList().size();
-                        // 处理返回的数据
 
+                        // 处理返回的数据
                         bundle.putString("operate", "add");
 
                         String taskType = bundle.getString("taskType");
@@ -151,8 +135,8 @@ public class TaskFragment extends Fragment {
                         Task newTask = new Task(0, taskType, time, content, point, finishedNum, num, classification);
 //                        Log.d("newTask", newTask.toString());
 
-                        taskDBHelper.insert(newTask);
-                        newTask.setId(taskDBHelper.getId());
+                        PlayTaskMainActivity.mDBMaster.mTaskDBDao.insertTask(newTask);
+                        newTask.setId(PlayTaskMainActivity.mDBMaster.mTaskDBDao.getId());
 
 //                        Log.d("newTask", String.valueOf(newTask.getId()));
 
@@ -207,4 +191,9 @@ public class TaskFragment extends Fragment {
         }
     }
 
+    public void updatePoint(){
+        TextView tv_point = getActivity().findViewById(R.id.tv_point);
+        int pointSum = PlayTaskMainActivity.mDBMaster.mCountDBDao.queryPointSum();
+        tv_point.setText(String.valueOf(pointSum));
+    }
 }

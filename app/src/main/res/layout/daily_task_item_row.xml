@@ -8,33 +8,49 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <CheckBox
+            android:id="@+id/cb_daily_task"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:layout_height="wrap_content"/>
+            android:gravity="center" />
 
-        <TextView
-            android:id="@+id/tv_daily_task_content"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="7"
             android:layout_height="@dimen/textViewHeight"
-            android:textSize="@dimen/taskContentTextSize"
-            android:textColor="@color/black"
-            android:gravity="center_vertical"
-            />
+            android:layout_weight="7"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_daily_task_content"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_daily_task_num"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:gravity="clip_vertical"
+                android:text="0/1"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/tv_daily_task_point"
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="@dimen/textViewHeight"
-            android:textSize="@dimen/taskPointTextSize"
+            android:layout_weight="2"
             android:gravity="center_vertical"
-            android:textColor="@color/DeepSkyBlue"/>
+            android:textColor="@color/DeepSkyBlue"
+            android:textSize="@dimen/taskPointTextSize" />
     </LinearLayout>
 
 </FrameLayout>

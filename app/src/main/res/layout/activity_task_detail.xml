@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".TaskDetailActivity">
+    tools:context=".Task.TaskDetailActivity">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -83,13 +83,19 @@
         android:hint="@string/new_task_num"
         android:textSize="@dimen/taskContentTextSize" />
 
-    <EditText
-        android:id="@+id/et_new_task_classification"
+<!--    <EditText-->
+<!--        android:id="@+id/et_new_task_classification"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/textViewHeight"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:hint="@string/new_task_classification"-->
+<!--        android:textSize="@dimen/taskContentTextSize" />-->
+
+    <Spinner
+        android:id="@+id/sp_new_task_classification"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/textViewHeight"
-        android:gravity="center_vertical"
-        android:hint="@string/new_task_classification"
-        android:textSize="@dimen/taskContentTextSize" />
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown" />
 
     <Button
         android:id="@+id/btn_new_task_confirm"

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AwardDetailActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/new_award_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/DeepSkyBlue"
+        app:titleTextColor="@android:color/white"
+        app:navigationIcon="@drawable/baseline_chevron_left_24"
+        app:title="新建奖励"
+        app:titleMarginStart="90dp"/>
+
+    <EditText
+        android:id="@+id/et_new_award_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/textViewHeight"
+        android:gravity="center_vertical"
+        android:hint="奖励内容"
+        android:textSize="@dimen/taskContentTextSize" />
+
+    <EditText
+        android:id="@+id/et_new_award_point"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/textViewHeight"
+        android:gravity="center_vertical"
+        android:hint="消耗的成就点数"
+        android:textSize="@dimen/taskContentTextSize" />
+
+    <Spinner
+        android:id="@+id/sp_new_award_classification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown" />
+
+    <Button
+        android:id="@+id/btn_new_award_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="确认"/>
+</LinearLayout>

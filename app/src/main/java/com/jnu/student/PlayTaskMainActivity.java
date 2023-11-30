@@ -7,40 +7,63 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jnu.student.Count.CountFragment;
+import com.jnu.student.Task.TaskFragment;
+import com.jnu.student.database.DBMaster;
 
 
 public class PlayTaskMainActivity extends AppCompatActivity {
     private BottomNavigationView mNavigationView;
-
     private FragmentManager mFragmentManager;
-
     private Fragment[] fragments;
     private int lastFragment;
 
+    public static DBMaster mDBMaster;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("test", "PlayTaskOnCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_task_main);
         mNavigationView = findViewById(R.id.main_navigation_bar);
         initFragment();
         initListener();
+
+        //启动数据库
+        mDBMaster = new DBMaster(getApplicationContext());
+        mDBMaster.openDataBase();
+
     }
 
     private void initFragment() {
-        TaskFragment taskFragment = new TaskFragment();
+        TaskFragment taskFragment = TaskFragment.getInstance();
         AwardFragment awardFragment = new AwardFragment();
         CountFragment countFragment = new CountFragment();
         PersonalFragment personalFragment = new PersonalFragment();
         fragments = new Fragment[]{taskFragment, awardFragment, countFragment, personalFragment};
         mFragmentManager = getSupportFragmentManager();
-        //默认显示HomeFragment
+
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+
+        // 添加所有的Fragment
+        fragmentTransaction.add(R.id.main_page_controller, taskFragment);
+        fragmentTransaction.add(R.id.main_page_controller, awardFragment);
+        fragmentTransaction.add(R.id.main_page_controller, countFragment);
+        fragmentTransaction.add(R.id.main_page_controller, personalFragment);
+
+        // 提交事务
+        fragmentTransaction.commit();
+
+                //默认显示HomeFragment
         mFragmentManager.beginTransaction()
                 .replace(R.id.main_page_controller, taskFragment)
                 .show(taskFragment)
                 .commit();
+
 
         // 禁用所选项目图标的色调效果，可以更改底部导航栏菜单的图标
         mNavigationView.setItemIconTintList(null);
