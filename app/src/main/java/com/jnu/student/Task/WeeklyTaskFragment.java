@@ -259,6 +259,8 @@ public class WeeklyTaskFragment extends Fragment {
                                 Count count = new Count(0, new Date(time), point, content, classification);
                                 PlayTaskMainActivity.mDBMaster.mCountDBDao.insertData(count);
 
+                                TaskFragment.getInstance().updatePoint();
+
                                 // 解决生命周期问题
                                 DayCountFragment.RecycleViewTaskAdapater dayCountAdapter = DayCountFragment.getInstance().getAdapter();
                                 if(dayCountAdapter != null){

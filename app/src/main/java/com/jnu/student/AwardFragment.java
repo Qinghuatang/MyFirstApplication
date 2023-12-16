@@ -164,6 +164,7 @@ public class AwardFragment extends Fragment {
 
                                 TaskFragment.getInstance().updatePoint();
                                 DayCountFragment.getInstance().updatePage(count);
+                                Toast.makeText(getContext(), "兑换成功!", Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 Toast.makeText(getContext(), "您的分数不足!", Toast.LENGTH_SHORT).show();

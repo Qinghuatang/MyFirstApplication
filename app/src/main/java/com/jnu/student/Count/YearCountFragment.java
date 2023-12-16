@@ -98,7 +98,7 @@ public class YearCountFragment extends Fragment implements OnChartValueSelectedL
         xAxis.setTextColor(Color.parseColor("#333333"));
         xAxis.setTextSize(11f);
         xAxis.setAxisMinimum(0f);
-        xAxis.setAxisMaximum(11f);
+        xAxis.setAxisMaximum(11.5f);
         xAxis.setDrawAxisLine(true);//是否绘制轴线
         xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
         xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值

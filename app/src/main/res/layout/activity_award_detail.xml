@@ -14,7 +14,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/DeepSkyBlue"
         app:titleTextColor="@android:color/white"
-        app:navigationIcon="@drawable/baseline_chevron_left_24"
+        app:navigationIcon="@drawable/go_back"
         app:title="新建奖励"
         app:titleMarginStart="90dp"/>
 

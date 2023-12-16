@@ -5,13 +5,16 @@ import android.content.Context;
 import android.content.Entity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieEntry;
 import com.jnu.student.data.Award;
 import com.jnu.student.data.Count;
 
 
+import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,6 +32,8 @@ public class CountDBDao {
     public static String KEY_CONTENT = "content";
     public static String KEY_POINT = "point";
     public static String KEY_CLASSIFICATION = "classification";
+    private String year;    // 记录当前年份
+    private String month;   // 记录当前月份
 
     private SQLiteDatabase mDatabase;
     /** 上下文 */
@@ -38,6 +43,10 @@ public class CountDBDao {
 
     public CountDBDao(Context context) {
         mContext = context;
+        Calendar calendar = Calendar.getInstance();
+        this.year = String.valueOf(calendar.get(Calendar.YEAR));
+        this.month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+        Log.d("month", month);
     }
 
     public void setDatabase(SQLiteDatabase db){
@@ -148,6 +157,18 @@ public class CountDBDao {
         return -expend;
     }
 
+    public List<String> queryDateByMonth(int month){
+        String query = "SELECT DISTINCT DATE(" + KEY_DATE + ") AS unique_dates FROM " + TABLE_NAME +
+                " WHERE strftime('%m', date) = ?";
+        Cursor results = mDatabase.rawQuery(query, new String[]{String.valueOf(month)});
+        ArrayList<String> dateList = new ArrayList<>();
+        while (results.moveToNext()) {
+            String uniqueDate = results.getString(0);
+            dateList.add(uniqueDate);
+        }
+        return dateList;
+    }
+
 
     /**
      * 查询结果转换
@@ -186,7 +207,7 @@ public class CountDBDao {
         List<BarEntry> entries = new ArrayList<>();
         String[] columns = new String[]{"strftime('%m', date)", "SUM(point)"};
         String selection = "strftime('%Y', date) = ? and point > 0";
-        String[] selectionArgs = new String[]{"2023"};
+        String[] selectionArgs = new String[]{this.year};
         Cursor results = mDatabase.query(TABLE_NAME, columns,
                 selection , selectionArgs, "strftime('%m', date)", null, null);
         while (results.moveToNext()) {
@@ -202,7 +223,7 @@ public class CountDBDao {
         List<BarEntry> entries = new ArrayList<>();
         String[] columns = new String[]{"strftime('%m', date)", "-SUM(point)"};
         String selection = "strftime('%Y', date) = ? and point < 0";
-        String[] selectionArgs = new String[]{"2023"};
+        String[] selectionArgs = new String[]{this.year};
         Cursor results = mDatabase.query(TABLE_NAME, columns,
                 selection , selectionArgs, "strftime('%m', date)", null, null);
         while (results.moveToNext()) {
@@ -217,14 +238,16 @@ public class CountDBDao {
 
     public List<Entry> queryMonthIncome(){
         List<Entry> entries = new ArrayList<>();
-        String[] columns = new String[]{"strftime('%d', date)", "SUM(point)"};
+        String[] columns = new String[]{"CAST(strftime('%d', date) AS INTEGER)", "SUM(point)"};
         String selection = "strftime('%m', date) = ? and point > 0";
-        String[] selectionArgs = new String[]{"11"};
+        String month = String.valueOf(this.month);
+        String[] selectionArgs = new String[]{month};
         Cursor results = mDatabase.query(TABLE_NAME, columns,
                 selection , selectionArgs, "strftime('%d', date)", null, null);
         while (results.moveToNext()) {
             int day = results.getInt(0) - 1;
             int dayIncome = results.getInt(1);
+            Log.d("dayIncome", day + " " + dayIncome);
             Entry entry = new Entry(day, dayIncome);
             entries.add(entry);
         }
@@ -233,9 +256,9 @@ public class CountDBDao {
 
     public List<Entry> queryMonthExpend(){
         List<Entry> entries = new ArrayList<>();
-        String[] columns = new String[]{"strftime('%d', date)", "-SUM(point)"};
+        String[] columns = new String[]{"CAST(strftime('%d', date) AS INTEGER)", "-SUM(point)"};
         String selection = "strftime('%m', date) = ? and point < 0";
-        String[] selectionArgs = new String[]{"11"};
+        String[] selectionArgs = new String[]{this.month};
         Cursor results = mDatabase.query(TABLE_NAME, columns,
                 selection , selectionArgs, "strftime('%d', date)", null, null);
         while (results.moveToNext()) {
@@ -284,6 +307,39 @@ public class CountDBDao {
         }
         return entries;
     }
+
+    public ArrayList<PieEntry> queryClassMonthIncome(int month){
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        String[] columns = new String[]{"classification", "SUM(point)"};
+        String selection = "strftime('%m', date) = ? and point > 0";
+        String[] selectionArgs = new String[]{String.valueOf(month)};
+        Cursor results = mDatabase.query(TABLE_NAME, columns,
+                selection , selectionArgs, "classification", null, null);
+        while (results.moveToNext()) {
+            String classification = results.getString(0);
+            int income = results.getInt(1);
+            PieEntry entry = new PieEntry(income, classification);
+            entries.add(entry);
+        }
+        return entries;
+    }
+
+    public ArrayList<PieEntry> queryClassMonthExpend(int month){
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        String[] columns = new String[]{"classification", "-SUM(point)"};
+        String selection = "strftime('%m', date) = ? and point < 0";
+        String[] selectionArgs = new String[]{String.valueOf(month)};
+        Cursor results = mDatabase.query(TABLE_NAME, columns,
+                selection , selectionArgs, "classification", null, null);
+        while (results.moveToNext()) {
+            String classification = results.getString(0);
+            int income = results.getInt(1);
+            PieEntry entry = new PieEntry(income, classification);
+            entries.add(entry);
+        }
+        return entries;
+    }
+
 
     public int getId() {
         Cursor cursor = mDatabase.rawQuery("select last_insert_rowid() from " + TABLE_NAME, null);

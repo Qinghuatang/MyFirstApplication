@@ -85,10 +85,6 @@ public class DailyTaskFragment extends Fragment {
         recycle_view_daily_task.setAdapter(adapter);
         registerForContextMenu(recycle_view_daily_task);     // 创建场景菜单事件
 
-//        TextView tv_point = rootView.findViewById(R.id.tv_point);
-//        int pointSum = PlayTaskMainActivity.mDBMaster.mCountDBDao.queryPointSum();
-//        tv_point.setText(String.valueOf(pointSum));
-
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
